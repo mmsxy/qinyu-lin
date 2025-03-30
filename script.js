@@ -15,6 +15,80 @@ document.addEventListener('DOMContentLoaded', function() {
     const frequencySlider = document.getElementById('frequency');
     const frequencyValue = document.getElementById('frequencyValue');
     const resultsContent = document.getElementById('resultsContent');
+        // Add these variables with the other DOM element declarations
+    const chatContainer = document.getElementById('chatContainer');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatMessages = document.getElementById('chatMessages');
+    const userMessageInput = document.getElementById('userMessage');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+
+    // Add this event listener with the others
+    closeChatBtn.addEventListener('click', closeChat);
+
+    // Add these functions with the other functions
+    function restartSimulation() {
+        resultsScreen.style.display = 'none';
+        welcomeScreen.style.display = 'block';
+        
+        // Show the AI chat interface when restarting
+        setTimeout(() => {
+            chatContainer.style.display = 'block';
+        }, 1000);
+    }
+
+    function closeChat() {
+        chatContainer.style.display = 'none';
+    }
+
+    function sendMessage() {
+        const message = userMessageInput.value.trim();
+        if (message) {
+            // Add user message to chat
+            addMessage(message, 'user');
+            userMessageInput.value = '';
+            
+            // Simulate AI response (in a real app, you'd call an API here)
+            setTimeout(() => {
+                const aiResponse = generateAIResponse(message);
+                addMessage(aiResponse, 'ai');
+            }, 1000);
+        }
+    }
+
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', sender + '-message');
+        messageDiv.innerHTML = `<p>${text}</p>`;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function generateAIResponse(message) {
+        // Simple response logic - in a real app you'd use an AI API
+        const lowerMessage = message.toLowerCase();
+        
+        if (lowerMessage.includes('funding') || lowerMessage.includes('investment')) {
+            return "Funding strategy depends on your business model and growth goals. Bootstrapping maintains control, while external funding can accelerate growth. What specific aspect of funding are you considering?";
+        } else if (lowerMessage.includes('market') || lowerMessage.includes('customer')) {
+            return "Market selection is crucial. Consider factors like size, growth potential, and competition. Have you conducted market research?";
+        } else if (lowerMessage.includes('team') || lowerMessage.includes('hire')) {
+            return "Building the right team is key. Start with core competencies and expand as needed. What roles are you looking to fill first?";
+        } else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+            return "Pricing should reflect value, costs, and competition. Have you analyzed your competitors' pricing strategies?";
+        } else if (lowerMessage.includes('risk') || lowerMessage.includes('challenge')) {
+            return "Every business faces risks. Identifying them early helps with mitigation. What specific risks concern you most?";
+        } else {
+            return "That's an interesting question about entrepreneurship. Could you provide more details so I can give you a more specific answer?";
+        }
+    }
+
+    // Add these event listeners for the chat interface
+    sendMessageBtn.addEventListener('click', sendMessage);
+    userMessageInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
 
     // Event Listeners
     startBtn.addEventListener('click', startSimulation);
