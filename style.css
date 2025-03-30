@@ -233,7 +233,7 @@ input[type="range"] {
 /* 更新后的聊天输入框样式 - 保证生效版本 */
 .chat-input input {
     flex-grow: 1;
-    padding: 15px 20px !important;
+    padding: 15px 20px ;
     border: 1px solid #ddd !important;
     border-radius: 25px !important;
     margin: 0 auto 10px auto !important;
