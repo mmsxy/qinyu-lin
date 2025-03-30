@@ -98,5 +98,21 @@
     </div>
 
     <script src="script.js"></script>
+            <!-- AI Chat Interface (hidden by default) -->
+        <div class="chat-container" id="chatContainer" style="display: none;">
+            <div class="chat-header">
+                <h3>AI Entrepreneurship Advisor</h3>
+                <button id="closeChatBtn" class="btn small-btn">Close</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai-message">
+                    <p>Hello! I'm your AI entrepreneurship advisor. How can I help you with your business strategy today?</p>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userMessage" placeholder="Ask me anything about entrepreneurship...">
+                <button id="sendMessageBtn" class="btn small-btn">Send</button>
+            </div>
+        </div>
 </body>
 </html>
