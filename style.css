@@ -245,13 +245,7 @@ input[type="range"] {
 
 /* 保持其他所有样式不变 */
 
-.chat-input input {
-    flex-grow: 1;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-right: 10px;
-}
+
 
 #backToStartBtn {
     margin-top: 30px;
