@@ -23,31 +23,36 @@
         </div>
 
         <div class="simulator-screen" id="simulatorScreen" style="display: none;">
-            <!-- 原有模拟器内容保持不变 -->
+            <!-- Existing simulator content remains exactly the same -->
+            <!-- ... -->
         </div>
 
         <div class="results-screen" id="resultsScreen" style="display: none;">
             <h2>Simulation Results</h2>
             <div id="resultsContent"></div>
             <button id="restartBtn" class="btn">Start Over</button>
-            <button id="openChatBtn" class="btn chat-btn">Talk to AI Advisor</button>
         </div>
 
-        <!-- 新增的AI聊天界面 -->
-        <div class="chat-container" id="chatContainer" style="display: none;">
+        <!-- New AI Chat Screen -->
+        <div class="chat-screen" id="chatScreen" style="display: none;">
             <div class="chat-header">
-                <h3>AI Entrepreneurship Advisor</h3>
-                <button id="closeChatBtn" class="btn small-btn">Close</button>
+                <h2>AI Entrepreneurship Advisor</h2>
+                <p>Ask me anything about your simulation results or entrepreneurship in general</p>
             </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="message ai-message">
-                    <p>Hello! I'm your AI entrepreneurship advisor. How can I help you with your business strategy today?</p>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        <p>Welcome to the AI Entrepreneurship Decision-Making Simulator!</p>
+                        <p>I'm excited to have you join us on this entrepreneurial journey. I can help you navigate the challenges of starting and growing a business by answering your questions and providing feedback on your simulation results.</p>
+                        <p>What would you like to know about your business strategy or the simulation?</p>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="Type your question here...">
+                    <button id="sendBtn" class="btn">Send</button>
                 </div>
             </div>
-            <div class="chat-input">
-                <input type="text" id="userMessage" placeholder="Ask me anything about entrepreneurship...">
-                <button id="sendMessageBtn" class="btn small-btn">Send</button>
-            </div>
+            <button id="backToSimulatorBtn" class="btn">Back to Simulator</button>
         </div>
     </div>
 
