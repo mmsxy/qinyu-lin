@@ -184,72 +184,68 @@ input[type="range"] {
     .form-section {
         padding: 15px;
     }
-}
-/* Add these new styles at the end of the existing CSS file */
-
-/* Chat Screen Styles */
+    /* Chat Screen Styles */
 .chat-screen {
-    padding: 20px;
+    padding: 30px;
+    text-align: center;
 }
 
 .chat-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.chat-header h2 {
-    color: #2c3e50;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .chat-container {
-    background-color: #f8f9fa;
+    max-width: 700px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 20px;
-    height: 400px;
-    overflow-y: auto;
-    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .chat-messages {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    text-align: left;
 }
 
 .message {
-    padding: 12px 15px;
-    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 18px;
     max-width: 80%;
 }
 
 .user-message {
-    align-self: flex-end;
     background-color: #3498db;
     color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
 }
 
 .ai-message {
-    align-self: flex-start;
     background-color: #ecf0f1;
-    color: #2c3e50;
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
 }
 
 .chat-input {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    padding: 15px;
+    background-color: white;
+    border-top: 1px solid #eee;
 }
 
 .chat-input input {
     flex-grow: 1;
-    padding: 12px;
+    padding: 10px 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 1em;
+    margin-right: 10px;
 }
 
-#backToSimulatorBtn {
-    display: block;
-    margin: 0 auto;
+#backToStartBtn {
+    margin-top: 30px;
+}
 }
