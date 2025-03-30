@@ -230,12 +230,20 @@ input[type="range"] {
     border-bottom-left-radius: 5px;
 }
 
-.chat-input {
-    display: flex;
-    padding: 15px;
-    background-color: white;
-    border-top: 1px solid #eee;
+/* Chat Screen Styles - 仅更新输入框部分 */
+.chat-input input {
+    flex-grow: 1;
+    padding: 15px 20px; /* 增大内边距使输入框更高 */
+    border: 1px solid #ddd;
+    border-radius: 25px; /* 增加圆角半径 */
+    margin-right: 10px;
+    font-size: 1.1em; /* 稍大字体 */
+    width: 80%; /* 控制宽度 */
+    margin: 0 auto; /* 居中 */
+    display: block; /* 使margin auto生效 */
 }
+
+/* 保持其他所有样式不变 */
 
 .chat-input input {
     flex-grow: 1;
