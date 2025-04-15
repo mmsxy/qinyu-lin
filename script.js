@@ -256,7 +256,7 @@ async function sendMessage() {
             body: JSON.stringify({
                 contents: [{
                     parts: [{
-                        text: `你是一位专业创业顾问，请用简洁中文回答以下问题（不超过100字）：${message}`
+                        text: `As a business advisor, respond in English only: ${message}`
                     }]
                 }],
                 safetySettings: [ // 增加安全设置
