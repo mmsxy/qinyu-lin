@@ -247,7 +247,7 @@ async function sendMessage() {
     addUserMessage(message);
     userInput.value = '';
     
-    const thinkingMsg = addAIMessage("AI正在思考...");
+    const thinkingMsg = addAIMessage("AI is thinking...");
     
     try {
         const response = await fetch(GEMINI_API_URL, {
@@ -273,20 +273,20 @@ async function sendMessage() {
         });
 
         if (!response.ok) {
-            throw new Error(`API请求失败: ${response.status}`);
+            throw new Error(`API request failed: ${response.status}`);
         }
 
         const data = await response.json();
         
         // 更健壮的数据检查
         if (!data?.candidates?.[0]?.content?.parts?.[0]?.text) {
-            throw new Error("无效的API响应结构");
+            throw new Error("Invalid API response structure");
         }
         
         thinkingMsg.textContent = data.candidates[0].content.parts[0].text;
     } catch (error) {
-        console.error("API错误详情:", error);
-        thinkingMsg.textContent = `服务暂时不可用 (${error.message})`;
+        console.error("API error details:", error);
+        thinkingMsg.textContent = `Service temporarily unavailable (${error.message})`;
     }
 }
     
