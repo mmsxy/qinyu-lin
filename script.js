@@ -1,6 +1,6 @@
 // 在 script.js 最顶部添加 ↓
 const GEMINI_API_KEY = "AIzaSyD9cXUKpsqijmh8g3LJO2UvA6lYr8PAX-c"; // 替换成你的实际API Key
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD9cXUKpsqijmh8g3LJO2UvA6lYr8PAX-c`;
 
 
 document.addEventListener('DOMContentLoaded', function() {
