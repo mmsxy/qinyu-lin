@@ -256,7 +256,7 @@ async function sendMessage() {
             body: JSON.stringify({
                 contents: [{
                     parts: [{
-                        text: `As a business advisor, respond in English only: ${message}`
+                        text: `Respond in English ONLY, do not use any other language: ${message}`
                     }]
                 }],
                 safetySettings: [ // 增加安全设置
