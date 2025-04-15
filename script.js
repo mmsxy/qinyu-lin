@@ -1,6 +1,6 @@
 // 在 script.js 最顶部添加 ↓
-const GEMINI_API_KEY = "AIzaSyD9cXUKpsqijmh8g3LJO2UvA6lYr8PAX-c"; // 替换成你的实际API Key
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD9cXUKpsqijmh8g3LJO2UvA6lYr8PAX-c`;
+const GEMINI_API_KEY = "AIzaSyD9cXUKpsqijmh8g3LJO2UvA6lYr8PAX-c";
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -244,37 +244,49 @@ async function sendMessage() {
     const message = userInput.value.trim();
     if (!message) return;
 
-    // 1. 显示用户消息
     addUserMessage(message);
     userInput.value = '';
-
-    // 2. 显示"AI正在思考"提示
-    const thinkingMsg = addAIMessage("AI正在思考..."); 
-
+    
+    const thinkingMsg = addAIMessage("AI正在思考...");
+    
     try {
-        // 3. 调用 Gemini API
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=你的_API_KEY`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{ text: `作为创业顾问，请用简短中文回答：${message}` }]
+        const response = await fetch(GEMINI_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: `你是一位专业创业顾问，请用简洁中文回答以下问题（不超过100字）：${message}`
                     }]
-                })
-            }
-        );
+                }],
+                safetySettings: [ // 增加安全设置
+                    {
+                        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                        threshold: "BLOCK_ONLY_HIGH"
+                    }
+                ],
+                generationConfig: { // 增加生成配置
+                    temperature: 0.5,
+                    maxOutputTokens: 200
+                }
+            })
+        });
 
-        // 4. 处理API响应
+        if (!response.ok) {
+            throw new Error(`API请求失败: ${response.status}`);
+        }
+
         const data = await response.json();
-        const aiText = data.candidates[0].content.parts[0].text;
         
-        // 5. 替换"思考中"提示为真实回复
-        thinkingMsg.textContent = aiText;
+        // 更健壮的数据检查
+        if (!data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+            throw new Error("无效的API响应结构");
+        }
+        
+        thinkingMsg.textContent = data.candidates[0].content.parts[0].text;
     } catch (error) {
-        thinkingMsg.textContent = "网络错误，请重试";
-        console.error("API调用失败:", error);
+        console.error("API错误详情:", error);
+        thinkingMsg.textContent = `服务暂时不可用 (${error.message})`;
     }
 }
     
