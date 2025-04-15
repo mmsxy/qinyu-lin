@@ -1,3 +1,8 @@
+// 在 script.js 最顶部添加 ↓
+const GEMINI_API_KEY = "AIzaSyB8IrS_Uqwey2Jma0qRV9EirblAAmAnNj8"; // 替换成你的实际API Key
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
     const welcomeScreen = document.getElementById('welcomeScreen');
@@ -219,14 +224,14 @@ userInput.addEventListener('keypress', function(e) {
         
         return recommendations.join(' ');
     }
-    function addAIMessage(text) {
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message', 'ai-message');
-    messageDiv.textContent = text;
-    chatMessages.appendChild(messageDiv);
+   function addAIMessage(text) {
+    const div = document.createElement('div');
+    div.className = 'message ai-message';
+    div.textContent = text;
+    chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+    return div; // 新增返回语句，用于后续修改内容
 }
-
 function addUserMessage(text) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', 'user-message');
@@ -235,24 +240,41 @@ function addUserMessage(text) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function sendMessage() {
+async function sendMessage() {
     const message = userInput.value.trim();
-    if (message) {
-        addUserMessage(message);
-        userInput.value = '';
+    if (!message) return;
+
+    // 1. 显示用户消息
+    addUserMessage(message);
+    userInput.value = '';
+
+    // 2. 显示"AI正在思考"提示
+    const thinkingMsg = addAIMessage("AI正在思考..."); 
+
+    try {
+        // 3. 调用 Gemini API
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=你的_API_KEY`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: `作为创业顾问，请用简短中文回答：${message}` }]
+                    }]
+                })
+            }
+        );
+
+        // 4. 处理API响应
+        const data = await response.json();
+        const aiText = data.candidates[0].content.parts[0].text;
         
-        // Simulate AI response (in a real app, this would call an API)
-        setTimeout(() => {
-            const responses = [
-                "That's an interesting question about entrepreneurship. Based on your earlier choices, I'd recommend...",
-                "Many entrepreneurs face similar challenges. Have you considered...",
-                "Great question! For a business with your configuration, the best approach might be...",
-                "Let me analyze that. Based on market trends and your setup, I suggest...",
-                "That's a key strategic consideration. The data suggests that..."
-            ];
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-            addAIMessage(randomResponse);
-        }, 1000);
+        // 5. 替换"思考中"提示为真实回复
+        thinkingMsg.textContent = aiText;
+    } catch (error) {
+        thinkingMsg.textContent = "网络错误，请重试";
+        console.error("API调用失败:", error);
     }
 }
     
