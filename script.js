@@ -1,5 +1,5 @@
 // 在 script.js 最顶部添加 ↓
-const GEMINI_API_KEY = "AIzaSyD9cXUKpsqijmh8g3LJO2UvA6lYr8PAX-c";
+const GEMINI_API_KEY = "AIzaSyCo1NhsZBJg5Yloi5HcrdeMnkNGrSloJ9E";
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 
